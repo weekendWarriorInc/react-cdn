@@ -1,8 +1,11 @@
-let entry_tag = document.querySelector('script.react-add-script')
-let entry_script_url = new URL(entry_tag.getAttribute('data-entry'), window.location.origin)
+let entry_tags = document.querySelectorAll('script.react-add-script')
+for (const tg of entry_tags) {
+    let entry_script_url = new URL(tg.getAttribute('data-entry'), window.location.origin)
 
-let react_cdn = document.querySelectorAll('script.react-cdn')
-add_scripts(entry_script_url, entry_tag)
+    let react_cdn = document.querySelectorAll('script.react-cdn')
+    add_scripts(entry_script_url, tg) 
+}
+
 
 function add_scripts(entry_script_url, entry_tag) {
     let first_react_script = Element
