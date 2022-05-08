@@ -1,4 +1,5 @@
  
+import Ele from "/App/components/Ele.js";
 const List = ({ item }) => {
     return (
       <div key={item.id.toString()}>
