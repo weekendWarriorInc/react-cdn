@@ -2,7 +2,6 @@ let entry_tags = document.querySelectorAll('script.react-add-script')
 for (const tg of entry_tags) {
     let entry_script_url = new URL(tg.getAttribute('data-entry'), window.location.origin)
 
-    let react_cdn = document.querySelectorAll('script.react-cdn')
     add_scripts(entry_script_url, tg) 
 }
 
@@ -53,7 +52,7 @@ function import_script(imports, parent_script) {
 
 function find_imports(text) {
     let result = []
-    let match = text.match(/import\s[\S]*\sfrom\s"[\S]*"/gm)
+    let match = text.match(/import\s[\S]*\sfrom\s("[\S]*")|('[\S]*')/gm)
     if (match && match.length) {
         for (const item of match) {
             let src = item.match(/"[\S]*"|'[\S]*'/)
