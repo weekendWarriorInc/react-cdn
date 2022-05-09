@@ -52,10 +52,11 @@ function import_script(imports, parent_script) {
 
 function find_imports(text) {
     let result = []
-    let match = text.match(/import\s[\S]*\sfrom\s("[\S]*")|('[\S]*')/gm)
+    let reg =/(import\s[\w\s,]*\sfrom\s['"\s*][\s\w\.\/-]*["'])|(import\s{[\w\s,]*}\sfrom\s['"\s*][\s\w\.\/-]*["'])/gm
+    let match = text.match(reg)
     if (match && match.length) {
         for (const item of match) {
-            let src = item.match(/"[\S]*"|'[\S]*'/)
+            let src = item.match(/("[\S]*")|('[\S]*')/)
             if (src.length) {
                 result.push(src[0].replace(/'|"/gm, ''))
 
