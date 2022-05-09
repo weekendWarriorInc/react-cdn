@@ -15,8 +15,8 @@ function add_scripts(entry_script_url, entry_tag) {
         first_react_script = document.createElement("script");
         first_react_script.setAttribute("type", "text/babel");
         first_react_script.setAttribute(
-            "data-plugins",
-            "transform-es2015-modules-umd"
+            "data-type",
+            "module"
         );
         first_react_script.setAttribute("crossorigin", "");
         let content = file_get_contents(entry_script_url);
@@ -80,7 +80,7 @@ function replace_imports(text) {
             }
         }
     }
-    return result.replace(/(export\s*default\s*[\S]*\s*$)|(export\s*[\S]*\s*$)/gm,'');
+    return result;
 }
 
 function file_get_contents(url) {

@@ -60,7 +60,7 @@ function replace_imports(text) {
     rec(text);
 
     function rec(n_text) {
-       
+        debugger;
         let reg =
             /(import\s[\w\s,]*\sfrom\s['"\s*][\s\w\.\/-]*["'])|(import\s{[\w\s,]*}\sfrom\s['"\s*][\s\w\.\/-]*["'])/gm;
         let matches = n_text.match(reg);
@@ -80,7 +80,7 @@ function replace_imports(text) {
             }
         }
     }
-    return result.replace(/(export\s*default\s*[\S]*\s*$)|(export\s*[\S]*\s*$)/gm,'');
+    return result;
 }
 
 function file_get_contents(url) {

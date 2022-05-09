@@ -1,33 +1,29 @@
-let entry_tags = document.querySelectorAll("script.react-add-script");
+let entry_tags = document.querySelectorAll('script.react-add-script')
 for (const tg of entry_tags) {
-    let entry_script_url = new URL(
-        tg.getAttribute("data-entry"),
-        window.location.origin
-    );
+    let entry_script_url = new URL(tg.getAttribute('data-entry'), window.location.origin)
 
-    add_scripts(entry_script_url, tg);
+    add_scripts(entry_script_url, tg)
 }
 
+
 function add_scripts(entry_script_url, entry_tag) {
-    let first_react_script = Element;
+    let first_react_script = Element
 
     if (entry_tag) {
-        first_react_script = document.createElement("script");
-        first_react_script.setAttribute("type", "text/babel");
-        first_react_script.setAttribute(
-            "data-plugins",
-            "transform-es2015-modules-umd"
-        );
-        first_react_script.setAttribute("crossorigin", "");
-        let content = file_get_contents(entry_script_url);
-        first_react_script.textContent = replace_imports(content);
-        entry_tag.after(first_react_script);
+
+        first_react_script = document.createElement('script')
+        first_react_script.setAttribute('type', 'text/babel')
+        first_react_script.setAttribute('data-plugins', 'transform-es2015-modules-umd')
+        first_react_script.setAttribute('crossorigin', '')
+        first_react_script.src = entry_script_url
+        entry_tag.after(first_react_script)
     }
     /*  let babel_scripts = document.querySelectorAll('script[type="text/babel"]');
      for (const script of babel_scripts) {
          add_curr_scripts(script, first_react_script)
 
      } */
+
 }
 
 /* function add_curr_scripts(script, first_react_script) {
@@ -55,33 +51,30 @@ function add_scripts(entry_script_url, entry_tag) {
 } */
 
 function replace_imports(text) {
-    let result = "";
+    let result = []
 
-    rec(text);
+
 
     function rec(n_text) {
-       
-        let reg =
-            /(import\s[\w\s,]*\sfrom\s['"\s*][\s\w\.\/-]*["'])|(import\s{[\w\s,]*}\sfrom\s['"\s*][\s\w\.\/-]*["'])/gm;
-        let matches = n_text.match(reg);
-        if (matches && matches.length) {
-            for (const item of matches) {
-                if (item) {
-                    let src = item
-                        .match(/("[\S]*")|('[\S]*')/)[0]
-                        .replace(/'|"/gm, "");
-                    let script = file_get_contents(src);
-                    result = n_text = n_text.replace(item, script);
-                    console.log(n_text.match(reg));
-                    if (n_text.match(reg)) {
-                        rec(n_text);
-                    }
+        let reg = /(import\s[\w\s,]*\sfrom\s['"\s*][\s\w\.\/-]*["'])|(import\s{[\w\s,]*}\sfrom\s['"\s*][\s\w\.\/-]*["'])/gm
+        let match = text.match(reg)
+        if (match && match.length) {
+            for (const item of match) {
+                let src = item.match(/("[\S]*")|('[\S]*')/)[0].replace(/'|"/gm, '')
+                let old_text =file_get_contents(src)
+                n_text=old_text.replace(item, old_text)
+                if (src.length) {
+                    result.push(src[0].replace(/'|"/gm, ''))
+
                 }
             }
         }
     }
-    return result.replace(/(export\s*default\s*[\S]*\s*$)|(export\s*[\S]*\s*$)/gm,'');
+    return result
 }
+
+
+
 
 function file_get_contents(url) {
     // Reads entire file into a string

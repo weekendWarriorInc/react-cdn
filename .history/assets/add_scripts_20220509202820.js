@@ -60,27 +60,25 @@ function replace_imports(text) {
     rec(text);
 
     function rec(n_text) {
-       
+        
         let reg =
             /(import\s[\w\s,]*\sfrom\s['"\s*][\s\w\.\/-]*["'])|(import\s{[\w\s,]*}\sfrom\s['"\s*][\s\w\.\/-]*["'])/gm;
         let matches = n_text.match(reg);
         if (matches && matches.length) {
             for (const item of matches) {
-                if (item) {
-                    let src = item
-                        .match(/("[\S]*")|('[\S]*')/)[0]
-                        .replace(/'|"/gm, "");
-                    let script = file_get_contents(src);
-                    result = n_text = n_text.replace(item, script);
-                    console.log(n_text.match(reg));
-                    if (n_text.match(reg)) {
-                        rec(n_text);
-                    }
+                let src = item
+                    .match(/("[\S]*")|('[\S]*')/)[0]
+                    .replace(/'|"/gm, "");
+                let script = file_get_contents(src);
+                result = n_text = n_text.replace(item, script);
+                console.log(n_text.match(reg))
+                if (n_text.match(reg).length) {
+                    rec(n_text)
                 }
             }
         }
     }
-    return result.replace(/(export\s*default\s*[\S]*\s*$)|(export\s*[\S]*\s*$)/gm,'');
+    return result;
 }
 
 function file_get_contents(url) {

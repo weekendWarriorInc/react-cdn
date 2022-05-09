@@ -80,7 +80,7 @@ function replace_imports(text) {
             }
         }
     }
-    return result.replace(/(export\s*default\s*[\S]*\s*$)|(export\s*[\S]*\s*$)/gm,'');
+    return result;
 }
 
 function file_get_contents(url) {
