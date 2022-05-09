@@ -4,7 +4,7 @@ const { useState, useEffect } = React;
 
 const App = () => {
   return (
-    <div>ііі</div>
+    <div>sadasdasd ввввв</div>
   )
 }
 
