@@ -1,7 +1,6 @@
  
 import Ele from "/App/components/Ele.js";
-import {data} from "/assets/data.js"
-console.log(data)
+import {data} from "/App/assets/data.js"
 const List = ({ item }) => {
     return (
       <div key={item.id.toString()}>

@@ -80,7 +80,7 @@ function replace_imports(text) {
         }
     }
     return result.replace(
-        /(export\s*default\s*[\S]*\s*$)|(export)/gm,
+        /(export\s*default\s*[\S]*\s*$)|(export\s*[\S]*\s*$)/gm,
         ""
     );
 }
